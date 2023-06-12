@@ -13,4 +13,5 @@ read -p "Enter number of messages to send: " number_of_messages
 for i in $(seq 1 $number_of_messages)
 do
   osascript -e "tell application \"Messages\" to send \"$message\" to buddy \"$phone_number\""
+  echo "Message sent: $i"
 done
