@@ -1,8 +1,15 @@
 #!/bin/bash
 
+# Detect the active Terminal application (Terminal or iTerm)
+TERMINAL_APP=$(osascript -e 'tell application "System Events" to get name of first process whose frontmost is true')
+
+# Open and focus the Contacts app
+osascript -e 'tell application "Contacts" to activate'
+
 # Use AppleScript to fetch contacts and let the user select one
 selected_contact=$(osascript <<EOF
 tell application "Contacts"
+    activate
     set contactNames to name of people
     set selectedName to choose from list contactNames with prompt "Select a contact to message:" without multiple selections allowed
     if selectedName is false then return "CANCELLED"
@@ -10,6 +17,11 @@ tell application "Contacts"
 end tell
 EOF
 )
+
+# Refocus the Terminal window **without opening a new one**
+osascript <<EOF
+tell application "$TERMINAL_APP" to activate
+EOF
 
 # Exit if user cancels selection
 if [ "$selected_contact" == "CANCELLED" ]; then
