@@ -13,3 +13,4 @@ echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.zshrc
 source ~/.zshrc
 
 echo "spam command installed successfully!"
+sudo reboot
