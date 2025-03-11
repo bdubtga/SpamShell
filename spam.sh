@@ -12,6 +12,6 @@ read -p "Enter number of messages to send: " number_of_messages
 # Loop to send message multiple times
 for i in $(seq 1 $number_of_messages)
 do
-  osascript -e "tell application \"Messages\" to send \"$message\" to buddy \"$phone_number\""
+  osascript -e "tell application \"Messages\" to send \"$message\" to buddy \"$phone_number\" of (service 1 whose service type is iMessage)"
   echo "Message sent: $i"
 done
